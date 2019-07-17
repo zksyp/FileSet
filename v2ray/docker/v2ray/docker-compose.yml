@@ -1,0 +1,25 @@
+version: "2"
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx_v2ray
+    volumes:
+      - ${PWD}/nginx/conf.d:/etc/nginx/conf.d
+      - /etc/acme/out:/etc/v2ray/ssl
+    ports:
+      - 443:443
+
+  v2ray:
+    image: v2ray/official
+    container_name: v2ray
+    restart: always
+    volumes:
+      - ${PWD}/config.json:/etc/v2ray/config.json
+    ports:
+      - 10001:10001
+
+networks:
+  default:
+    external:
+      name: v2ray_bridge

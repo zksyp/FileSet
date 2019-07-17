@@ -1,0 +1,13 @@
+version: "2"
+
+services:
+  acme.sh:
+    image: neilpang/acme.sh
+    container_name: acme.sh
+    restart: always
+    command: daemon
+    volumes:
+      - /etc/acme.sh:/acme.sh
+      - /etc/acme/out:/acme/out
+    ports:
+      - 80:80
